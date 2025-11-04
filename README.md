@@ -25,3 +25,20 @@ A full-stack photo sharing app built using **MongoDB, Express, React, and Node.j
 
 ## 📂 Project Structure
 
+project/
+│── Backend/
+│── Frontend/
+│── .gitignore
+│── README.md
+
+
+## Create .env file:
+
+PORT=5000
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_secret_key
+CLIENT_URL=http://localhost:5173
+
+## ⭐ Support
+
+If this repo helped you, don't forget to star ⭐

@@ -1,0 +1,92 @@
+/* -------------------------
+   📸 Comment Section Styles
+--------------------------*/
+
+.comments-section {
+  background: #fafafa;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-family: "Segoe UI", sans-serif;
+  transition: all 0.2s ease-in-out;
+}
+
+.comments-section h5 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Comment List */
+.comment {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #444;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment strong {
+  color: #000;
+  font-weight: 600;
+}
+
+/* Comment input form */
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+.comment-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-button:hover {
+  background-color: #0056b3;
+}
+
+/* Smooth fade animation when new comment appears */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.comment {
+  animation: fadeIn 0.3s ease;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../api";
 
-const UploadForm = ({ fetchPhotos, user }) => {
+const UploadForm = ({ fetchPhotos }) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
 
@@ -17,11 +17,11 @@ const UploadForm = ({ fetchPhotos, user }) => {
       await API.post("/photos", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${user.token}`,
         },
+        withCredentials: true, // ✅ ensures cookie (JWT) is sent
       });
 
-      alert("Photo uploaded successfully!");
+      alert("✅ Photo uploaded successfully!");
       setTitle("");
       setFile(null);
       fetchPhotos();
@@ -39,10 +39,13 @@ const UploadForm = ({ fetchPhotos, user }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <input
         type="file"
         onChange={(e) => setFile(e.target.files[0])}
+        accept="image/*"
       />
+
       <button type="submit">Upload Photo</button>
     </form>
   );

@@ -49,7 +49,6 @@ html, body {
   display: flex;
   align-items: center;
   gap: 25px;
-  
 }
 
 .navbar a,
@@ -139,7 +138,7 @@ html, body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 30px 40px;
-  margin: 40px auto;
+  margin: 30px auto;
   width: 500px;
   max-width: 800px;
   display: flex;
@@ -164,8 +163,8 @@ html, body {
   width: 100%;
 }
 
-/* Title Input */
-.upload-container input[type="text"] {
+.upload-container input[type="text"],
+.upload-container input[type="file"] {
   flex: 1 1 100%;
   padding: 12px 15px;
   border: 1px solid var(--border);
@@ -178,17 +177,6 @@ html, body {
 .upload-container input[type="text"]:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-}
-
-/* File Input */
-.upload-container input[type="file"] {
-  flex: 1 1 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: #fafafa;
-  cursor: pointer;
-  font-size: 0.95rem;
 }
 
 .upload-container input[type="file"]::-webkit-file-upload-button {
@@ -205,7 +193,6 @@ html, body {
   background: #005fd1;
 }
 
-/* Submit Button */
 .upload-container button {
   flex: 1 1 100%;
   padding: 12px;
@@ -224,31 +211,14 @@ html, body {
   transform: translateY(-2px);
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .upload-container {
-    padding: 25px 20px;
-  }
-
-  .upload-container form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .upload-container input,
-  .upload-container button {
-    width: 100%;
-  }
-}
-
-
 /* === Photo Grid === */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
+  height: auto;
 }
 
 .photo-card {
@@ -259,6 +229,7 @@ html, body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   text-align: center;
+  padding-bottom: 15px;
 }
 
 .photo-card:hover {
@@ -267,81 +238,194 @@ html, body {
 }
 
 .photo-card img {
-  width: 100%;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   display: block;
+  margin: 15px auto 0;
   border-radius: var(--radius);
 }
 
-/* ❤️ Like Button - always visible */
-.like-btn {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
+.photo-owner {
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* === Like + Delete Actions === */
+.photo-actions {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.like-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.like-btn {
+  background: none;
+  border: none;
   cursor: pointer;
-  color: #777;
-  transition: all 0.2s ease;
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  transition: transform 0.2s ease;
 }
 
 .like-btn:hover {
-  transform: scale(1.15);
-  background: #fff;
+  transform: scale(1.2);
 }
 
 .like-btn.liked {
-  color: #ff3d71;
+  color: #e0245e;
 }
 
-/* Like Count */
 .like-count {
   font-size: 14px;
-  color: #666;
-  margin-top: 6px;
-  display: block;
+  color: #555;
+  text-align: center;
 }
 
-/* Delete Button */
 .delete-btn {
-  background: #ff4d4d;
+  background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: var(--radius);
-  padding: 8px 12px;
-  margin: 10px auto 15px;
-  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
 }
 
 .delete-btn:hover {
-  background: #e60000;
+  background-color: #e40017;
 }
 
-/* Responsive */
+/* === Comments Section === */
+.comments-section {
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.comments-section h5 {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.comment {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+/* Comment Form */
+.comment-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.comment-form button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.comment-form button:hover {
+  background-color: #005fd1;
+}
+
+/* === Show Comments Button === */
+.show-comments-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8px auto;
+}
+
+.show-comments-btn:hover {
+  background-color: #005fd1;
+  transform: translateY(-2px);
+}
+
+.show-comments-btn svg {
+  font-size: 14px;
+}
+
+/* === Pagination Section === */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.pagination button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #005fd1;
+  transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pagination span {
+  font-weight: 600;
+  color: #333;
+  font-size: 15px;
+}
+
+/* === Responsive Design === */
 @media (max-width: 900px) {
   .page {
     padding: 25px;
-  }
-
-  .upload-container form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .upload-container input,
-  .upload-container button {
-    width: 100%;
   }
 
   .navbar {
@@ -361,18 +445,26 @@ html, body {
     margin-top: 60px;
   }
 
-  .upload-container h3 {
-    text-align: center;
+  .upload-container {
+    padding: 20px;
+  }
+
+  .upload-container form {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .navbar-links {
     flex-wrap: wrap;
     gap: 10px;
-    margin: 0 5px;
-    padding-right: 10px;
   }
-}
-.upload-heading h4{
- text-align: center;
- padding-top: 20px;
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pagination button {
+    width: 100px;
+  }
 }

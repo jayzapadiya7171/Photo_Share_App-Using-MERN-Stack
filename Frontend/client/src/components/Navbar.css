@@ -1,0 +1,163 @@
+/* 🌐 Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0a66c2;
+  color: #fff;
+  padding: 14px 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* 📸 Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: black;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.logo:hover {
+  color: #e0edff;
+  transform: scale(1.06);
+}
+
+/* 🔗 Navbar Right Menu */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* 🔘 Rounded Button Nav Links */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  transition: all 0.35s ease;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* ✨ Hover Effect */
+.nav-link:hover {
+  background: rgba(0, 229, 255, 0.18);
+  color: #00e5ff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+/* 🔵 Active Route */
+.nav-link.active {
+  background: rgba(0, 229, 255, 0.25);
+  color: #00eaff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+}
+
+/* 🔦 Bottom Glow Line */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
+  transition: width 0.35s ease;
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 60%;
+}
+
+/* 👤 User Info */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: 50px;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+/* 🚪 Logout Button */
+.logout-btn {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  background-color: #e03e3e;
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(255, 76, 76, 0.4);
+}
+
+/* 💫 Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 12px 20px;
+  }
+
+  .navbar-right {
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+  }
+
+  .logout-btn {
+    padding: 7px 12px;
+  }
+}

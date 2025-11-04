@@ -1,42 +1,45 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../api";
-import { useNavigate } from "react-router-dom";
+import "./Auth.css";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const { data } = await API.post("/users/login", form);
-      localStorage.setItem("user", JSON.stringify(data));
-      alert("Login successful!");
+      await API.post("/users/login", { email, password });
+
+      // 🔥 Tell Navbar that user is now logged in
+      window.dispatchEvent(new Event("userLoggedIn"));
+
       navigate("/");
     } catch (error) {
-      console.error("Login error:", error);
       alert(error.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <div className="auth-container">
-      <h2>Login</h2>
-      <form onSubmit={submitHandler}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button type="submit">Login</button>
-      </form>
+      <div className="auth-box">
+        <h2>Login</h2>
+
+        <form onSubmit={handleSubmit}>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+
+        <Link to="/forgot-password" className="forgot-link">Forgot Password?</Link>
+
+        <p className="switch-text">
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
   );
 };

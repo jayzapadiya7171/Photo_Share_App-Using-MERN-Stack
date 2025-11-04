@@ -1,21 +1,24 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../api";
-import { useNavigate } from "react-router-dom";
+import "./Auth.css";
 
 const Register = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // ✅ Correct endpoint
-      const { data } = await API.post("/users/register", form);
+      const { data } = await API.post(
+        "/register",
+        { username, email, password },
+        { withCredentials: true } 
+      );
 
-      // ✅ Store token & user info
-      localStorage.setItem("user", JSON.stringify(data));
-
-      alert("Account created successfully!");
+      localStorage.setItem("user", JSON.stringify(data.user)); // optional
       navigate("/");
     } catch (error) {
       alert(error.response?.data?.message || "Registration failed");
@@ -24,28 +27,41 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <h2>Sign Up</h2>
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button type="submit">Register</button>
-      </form>
+      <div className="auth-box">
+        <h2>Sign Up</h2>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">Register</button>
+        </form>
+
+        <p className="switch-text">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };

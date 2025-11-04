@@ -10,7 +10,8 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getPhotos);
+// ✅ Require login for all photo operations
+router.get("/", protect, getPhotos);
 router.post("/", protect, upload.single("image"), uploadPhoto);
 router.delete("/:id", protect, deletePhoto);
 router.put("/:id/like", protect, toggleLike);

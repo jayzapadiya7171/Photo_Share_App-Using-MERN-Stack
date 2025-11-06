@@ -15,8 +15,8 @@ const generateToken = (id) => {
 const cookieOptions = {
   httpOnly: true,
   secure: false, // set to true only in production (HTTPS)
-  sameSite: "lax",
-  path: "/", // must match exactly for clearCookie
+  sameSite: "Strict",
+  path: "/", 
 };
 
 // -----------------------------
@@ -106,8 +106,7 @@ export const getProfile = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    console.log("🛠️ Incoming Update Request:", req.body);
-    console.log("✅ Authenticated User ID:", req.user?._id);
+    
 
     const { name, email, currentPassword, newPassword } = req.body;
 

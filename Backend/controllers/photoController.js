@@ -24,13 +24,32 @@ export const uploadPhoto = async (req, res) => {
 
 export const getPhotos = async (req, res) => {
   try {
-    const photos = await Photo.find().populate("user", "name email");
+    // 🔍 Read the search keyword from query string (e.g. /api/photos?search=mobile)
+    const { search = "" } = req.query;
+
+    // If search text exists, filter by title or user name
+    const filter = search
+      ? {
+          $or: [
+            { title: { $regex: search, $options: "i" } }, // match title
+            // { "user.name": { $regex: search, $options: "i" } },  match uploader name
+          ],
+        }
+      : {};
+
+    // 🔎 Fetch from DB, populate user details
+    const photos = await Photo.find(filter)
+      .populate("user", "name email")
+      
+
+    // Send filtered or full list
     res.json(photos);
   } catch (error) {
     console.error("Fetch error:", error);
     res.status(500).json({ message: "Failed to fetch photos" });
   }
 };
+
 
 export const deletePhoto = async (req, res) => {
   try {

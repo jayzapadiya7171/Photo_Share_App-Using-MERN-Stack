@@ -7,10 +7,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false); // 👈 NEW state for toggle
 
   const fetchUser = async () => {
     try {
-      const res = await API.get("/users/profile");
+      const res = await API.get("/users/profile", { withCredentials: true });
       setUser(res.data.user);
     } catch {
       setUser(null);
@@ -26,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   const logoutHandler = async () => {
-    await API.post("/users/logout");
+    await API.post("/users/logout", {}, { withCredentials: true });
     setUser(null);
     navigate("/login", { replace: true });
   };
@@ -35,19 +36,44 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo" onClick={() => navigate("/")}>📸 Photo Share</div>
+      {/* Logo */}
+      <div className="logo" onClick={() => navigate("/")}>
+        📸 Photo Share
+      </div>
 
-      <div className="navbar-right">
-        <Link to="/" className="nav-link">Home</Link>
+      {/* Hamburger Icon (mobile) */}
+      <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? "✖" : "☰"}
+      </div>
+
+      {/* Nav Links */}
+      <div className={`navbar-right ${menuOpen ? "open" : ""}`}>
+        <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
+          Home
+        </Link>
 
         {user ? (
           <>
-            <Link to="/upload" className="nav-link">⬆️ Upload</Link>
-            <Link to="/profile" className="nav-link">👤 {user.name}</Link>
-            <button className="logout-btn" onClick={logoutHandler}>Logout</button>
+            <Link to="/upload" className="nav-link" onClick={() => setMenuOpen(false)}>
+              ⬆️ Upload
+            </Link>
+            <Link to="/profile" className="nav-link" onClick={() => setMenuOpen(false)}>
+              👤 {user.name}
+            </Link>
+            <button
+              className="logout-btn"
+              onClick={() => {
+                logoutHandler();
+                setMenuOpen(false);
+              }}
+            >
+              Logout
+            </button>
           </>
         ) : (
-          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>
+            Login
+          </Link>
         )}
       </div>
     </nav>

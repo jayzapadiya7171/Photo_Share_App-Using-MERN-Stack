@@ -1,4 +1,4 @@
-# Photo Share App (MERN Stack)
+ Photo Share App (MERN Stack)
 
 A full-stack photo sharing app built using **MongoDB, Express, React, and Node.js** with:
 
@@ -11,7 +11,7 @@ A full-stack photo sharing app built using **MongoDB, Express, React, and Node.j
 
 ---
 
-## 🚀 Tech Stack
+ 🚀 Tech Stack
 
 | Layer | Tech |
 |-------|------|
@@ -23,7 +23,7 @@ A full-stack photo sharing app built using **MongoDB, Express, React, and Node.j
 
 ---
 
-## 📂 Project Structure
+ 📂 Project Structure
 
 project/
 │── Backend/
@@ -32,13 +32,13 @@ project/
 │── README.md
 
 
-## Create .env file:
+ Create .env file:
 
 PORT=5000
 MONGO_URI=your_mongodb_url
 JWT_SECRET=your_secret_key
 CLIENT_URL=http://localhost:5173
 
-## ⭐ Support
+ ⭐ Support
 
 If this repo helped you, don't forget to star ⭐
